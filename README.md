@@ -59,7 +59,7 @@ npm  run  dev:hot
 
   
 
-The API will be available at `http://localhost:3000`.
+The API will be available at `http://localhost:3000` (unless you provide .env with other value for PORT variable - 3000 is default).
 
   
 
@@ -103,7 +103,7 @@ Query params:
 
 
 Example request:
-`http://localhost:3001/api/symbol-price-analysis?symbol=ETHBTC&interval=5m&startTime=1762819200000`
+`http://localhost:3000/api/symbol-price-analysis?symbol=ETHBTC&interval=5m&startTime=1762819200000`
 
 Example response:
 ```
@@ -129,3 +129,7 @@ Example response:
 ## Important Note
 
 I chose to use candles data to complete this task. Because of that requested time range can differ from the actually fetched time range. Because of that. I've added `requestedStartTime`, `requestedEndTime` and `actualStartTime`, `actualEndTime` to the response. 
+
+Limit `interval` query param value to get best time range match (but at the same time when limiting `interval` keep time range small since this project returns 500 candles at a time).
+
+Higher interval (assume that e.g. `15m` is higher interval than `5m`) means it is possible to take wider time range into price analysis. 
