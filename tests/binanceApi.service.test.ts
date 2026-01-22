@@ -34,7 +34,7 @@ describe('fetchCandles', () => {
         })
     })
 
-    it('successfully retrieves candles and maps numeric fields', async () => {
+    it('successfully retrieves candles, maps numeric fields, limits fields', async () => {
         candlesMock.mockResolvedValueOnce([{
             openTime: 1508328900000,
             open: '0.05655000',
