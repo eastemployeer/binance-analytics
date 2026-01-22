@@ -2,9 +2,9 @@ import express, { NextFunction, Request, Response } from 'express';
 import limiter from 'express-rate-limit';
 import helmet from 'helmet';
 
-import exampleRouter from '@src/routes/example.router';
-
+import marketRouter from '@src/routes/market.router';
 import AppError from './helpers/AppError';
+
 
 const rateLimiter = limiter({
   windowMs: 15 * 60 * 1000,
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(rateLimiter);
-app.use('/api', exampleRouter);
+app.use('/api', marketRouter);
 
 app.use((err: Error, _: Request, res: Response, _next: NextFunction) => {
   console.error(err)
