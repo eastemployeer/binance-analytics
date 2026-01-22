@@ -1,3 +1,6 @@
+/**
+ * Binance Market Interval enum
+ */
 export enum MarketInterval {
     ONE_MINUTE = '1m',
     THREE_MINUTES = '3m',
@@ -9,6 +12,9 @@ export enum MarketInterval {
     ONE_MONTH = '1M'
 }
 
+/**
+ * Binance Market Candle
+ */
 export interface MarketCandle {
     openTime: number,
     open: number,

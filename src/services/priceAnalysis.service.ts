@@ -7,6 +7,10 @@ function getPriceDirection(diff: number): PriceDirection {
     return 'neutral';
 }
 
+/**
+ * Generates price analysis for single candle (compares price at openTime and closeTime)
+ */
+
 function getCandleAnalysis(candle: MarketCandle): SingleCandleAnalysisResult {
     const diff = candle.close - candle.open;
 
@@ -17,6 +21,10 @@ function getCandleAnalysis(candle: MarketCandle): SingleCandleAnalysisResult {
     }
 }
 
+
+/**
+ * Generates overall price analysis for specific candles set
+ */
 function getOverallAnalysis(candles: MarketCandle[]) {
     const firstCandle = candles[0];
     const lastCandle = candles[candles.length - 1];
@@ -31,6 +39,12 @@ function getOverallAnalysis(candles: MarketCandle[]) {
     }
 }
 
+
+/**
+ * Generates complete price analysis for:
+ * 1. Each candle
+ * 2. Overall
+ */
 export function analyzeCandlesData({candles, requestedEndTime, requestedStartTime}: PriceAnalysisProps): PriceAnalysisResult | null {
     if (candles.length < 1) return null;
     
@@ -38,12 +52,11 @@ export function analyzeCandlesData({candles, requestedEndTime, requestedStartTim
     const overallAnalysis = getOverallAnalysis(candles);
 
     return {
-        candles: candlesAnalysis,
         overall: {
             ...overallAnalysis,
             requestedStartTime: requestedStartTime ? new Date(requestedStartTime).toISOString() : null,
             requestedEndTime: requestedEndTime ? new Date(requestedEndTime).toISOString(): null,
-        }
+        },
+        candles: candlesAnalysis,
     }
-
 }
