@@ -12,7 +12,7 @@ function getCandleAnalysis(candle: MarketCandle): SingleCandleAnalysisResult {
 
     return {
         priceDirection: getPriceDirection(diff),
-        absoluteChange: diff,
+        absoluteChange: Math.abs(diff),
         percentageChange: (diff / candle.open) * 100
     }
 }
@@ -24,14 +24,16 @@ function getOverallAnalysis(candles: MarketCandle[]) {
 
     return {
         priceDirection: getPriceDirection(diff),
-        absoluteChange: diff,
+        absoluteChange: Math.abs(diff),
         percentageChange: (diff/ firstCandle.open) * 100,
         actualStartTime: new Date(firstCandle.openTime).toISOString(),
         actualEndTime: new Date(lastCandle.closeTime).toISOString()
     }
 }
 
-export function analyzeCandlesData({candles, requestedEndTime, requestedStartTime}: PriceAnalysisProps): PriceAnalysisResult {
+export function analyzeCandlesData({candles, requestedEndTime, requestedStartTime}: PriceAnalysisProps): PriceAnalysisResult | null {
+    if (candles.length < 1) return null;
+    
     const candlesAnalysis = candles.map((candle) => getCandleAnalysis(candle));
     const overallAnalysis = getOverallAnalysis(candles);
 

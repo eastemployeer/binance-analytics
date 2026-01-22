@@ -10,9 +10,9 @@ export enum MarketInterval {
 }
 
 export interface MarketCandle {
-    openTime: Date,
+    openTime: number,
     open: number,
-    closeTime: Date,
+    closeTime: number,
     close: number
 }
 
